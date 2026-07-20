@@ -1,0 +1,7 @@
+generated: '2026-07-20'
+method: derived
+workflows:
+- file: alex-bank-browse-products.yml
+  workflowId: browseProductsAndGetDetail
+  title: Browse Alex Bank products and fetch one product's detail
+  summary: List public CDR banking products then retrieve the first product's full detail.

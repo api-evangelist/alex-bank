@@ -1,0 +1,64 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/alex-bank-cds-banking-products-openapi.yml
+note: >-
+  Entity-relationship graph for the CDR Banking data model that Alex Bank exposes.
+  Only the Product entities are reachable on the public (unauthenticated) surface;
+  the remainder are part of the accredited-data-recipient consumer-data-sharing surface.
+  Ids are CDR ASCII string identifiers (no standardised prefix scheme).
+entities:
+- name: BankingProduct
+  id: productId
+  public: true
+  operations: [listBankingProducts, getBankingProductDetail]
+  schema: ResponseBankingProductListV4 / BankingProductDetailV4
+- name: BankingAccount
+  id: accountId
+  public: false
+  operations: [listBankingAccounts, getBankingAccountDetail]
+- name: BankingBalance
+  id: accountId
+  public: false
+  operations: [getBankingBalance, listBankingBalancesBulk, listBankingBalancesSpecificAccounts]
+- name: BankingTransaction
+  id: transactionId
+  public: false
+  operations: [listBankingTransactions, getBankingTransactionDetail]
+- name: BankingDirectDebit
+  public: false
+  operations: [listDirectDebits, listDirectDebitsBulk, listDirectDebitsSpecificAccounts]
+- name: BankingScheduledPayment
+  public: false
+  operations: [listScheduledPayments, listScheduledPaymentsBulk, listScheduledPaymentsSpecificAccounts]
+- name: BankingPayee
+  id: payeeId
+  public: false
+  operations: [listBankingPayees, getBankingPayeeDetail]
+- name: BankingProductInstalmentPlan
+  public: false
+  operations: [listInstalmentPlans, listInstalmentPlansBulk]
+relationships:
+- from: BankingAccount
+  to: BankingProduct
+  type: belongs_to
+  via: productCategory / product reference
+- from: BankingAccount
+  to: BankingBalance
+  type: has_one
+  via: accountId
+- from: BankingAccount
+  to: BankingTransaction
+  type: has_many
+  via: accountId
+- from: BankingAccount
+  to: BankingDirectDebit
+  type: has_many
+  via: accountId
+- from: BankingAccount
+  to: BankingScheduledPayment
+  type: has_many
+  via: accountId
+- from: BankingScheduledPayment
+  to: BankingPayee
+  type: belongs_to
+  via: payeeReference

@@ -1,0 +1,25 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Alex Bank CDR Product Reference Data API
+  version: 1.0.0
+extends: openapi/alex-bank-cds-banking-products-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: alex-bank
+    x-apievangelist-public-surface: >-
+      Only listBankingProducts and getBankingProductDetail are public/unauthenticated at
+      https://public.cdr.alex.com.au/cds-au/v1. All other operations require ACCC accreditation.
+    x-apievangelist-auth: FAPI OAuth2/OIDC + mTLS-bound tokens + PKCE + PAR (consumer data only)
+- target: $.servers
+  update:
+    - url: https://public.cdr.alex.com.au/cds-au/v1
+      description: Alex Bank public CDR Product Reference Data (confirmed HTTP 200, x-v 3)
+- target: "$.paths['/banking/products'].get"
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-auth: none
+- target: "$.paths['/banking/products/{productId}'].get"
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-auth: none

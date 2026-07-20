@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  openapi/alex-bank-cds-banking-products-openapi.yml ;
+  https://consumerdatastandardsaustralia.github.io/standards/
+versioning:
+  scheme: header-negotiated
+  mechanism: x-v request header selects the endpoint version; x-v response header confirms served version
+  current_products_version: '5'
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+deprecation:
+  model: obsolete-versions
+  policy_url: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+  note: >-
+    The CDS deprecates prior endpoint versions via a formal obsolete-version model
+    (each operation lists its obsolete versions, e.g. Get Products v1-v4 are obsolete,
+    v5 is current). New minimum versions are announced with a Future Dated Obligation
+    date before older versions are retired.
+  sunset_header: false
+sla:
+  note: >-
+    CDR data-holder availability and performance thresholds are set by the Consumer Data
+    Standards and enforced by the ACCC; Alex Bank publishes no separate developer SLA page.
+status_page: null
+deprecated_operations: []

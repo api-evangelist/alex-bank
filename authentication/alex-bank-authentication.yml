@@ -1,0 +1,61 @@
+generated: '2026-07-20'
+method: searched
+source: https://public.cdr.alex.com.au/.well-known/openid-configuration
+docs: https://www.alex.bank/legal/open-banking/
+summary:
+  types: [none, oauth2, openIdConnect, mutualTLS]
+  api_key_in: []
+  oauth2_flows: [authorizationCode, clientCredentials, refreshToken]
+  note: >-
+    Two-tier auth. (1) The public CDR Product Reference Data endpoints
+    (GET /banking/products, GET /banking/products/{productId}) are UNAUTHENTICATED
+    by design under the Consumer Data Standards - no key, token or client cert.
+    (2) All consumer-data sharing (accounts, balances, transactions, payees, direct
+    debits, scheduled payments) is gated by the CDR FAPI security profile and is
+    reachable only by ACCC-accredited data recipients.
+tiers:
+- name: Product Reference Data (public)
+  auth: none
+  scheme: none
+  applies_to:
+  - listBankingProducts
+  - getBankingProductDetail
+  base_url: https://public.cdr.alex.com.au/cds-au/v1
+- name: CDR Consumer Data Sharing (accredited data recipients only)
+  auth: FAPI 2.0 / CDR security profile
+  applies_to: all authenticated banking resources
+schemes:
+- name: CDR-OAuth2-OIDC
+  type: openIdConnect
+  openIdConnectUrl: https://public.cdr.alex.com.au/.well-known/openid-configuration
+  issuer: https://public.cdr.alex.com.au
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://public.cdr.alex.com.au/connect/authorize
+    tokenUrl: https://secure.cdr.alex.com.au/connect/token
+  - flow: clientCredentials
+    tokenUrl: https://secure.cdr.alex.com.au/connect/token
+  endpoints:
+    pushed_authorization_request: https://secure.cdr.alex.com.au/connect/par
+    introspection: https://secure.cdr.alex.com.au/connect/introspect
+    revocation: https://secure.cdr.alex.com.au/arrangements/revoke
+    userinfo: https://secure.cdr.alex.com.au/userinfo
+    registration: https://secure.cdr.alex.com.au/connect/register
+    jwks: https://public.cdr.alex.com.au/jwks
+    cdr_arrangement_revocation: https://secure.cdr.alex.com.au/arrangements/revoke
+  fapi_profile:
+    token_endpoint_auth: private_key_jwt
+    mtls_sender_constrained_tokens: true
+    pushed_authorization_requests: required
+    pkce: S256
+    request_object_signing_alg: [PS256]
+    id_token_signing_alg: [ES256]
+    response_modes: [jwt]
+    acr_values: [urn:cds.au:cdr:2]
+  sources: [https://public.cdr.alex.com.au/.well-known/openid-configuration]
+- name: CDR-mTLS
+  type: mutualTLS
+  note: >-
+    Sender-constrained (mTLS-bound) access tokens per FAPI; token endpoint and all
+    resource calls run over the CDR mTLS host. tls_client_certificate_bound_access_tokens=true.
+  sources: [https://public.cdr.alex.com.au/.well-known/openid-configuration]

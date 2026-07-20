@@ -1,0 +1,49 @@
+arazzo: 1.0.1
+info:
+  title: Browse Alex Bank products and fetch one product's detail
+  version: 1.0.0
+  summary: >-
+    List Alex Bank's public CDR banking products, then retrieve the full detail of the
+    first product. Runs against the public unauthenticated PRD endpoint - no credentials.
+sourceDescriptions:
+- name: alexBankCds
+  url: ../openapi/alex-bank-cds-banking-products-openapi.yml
+  type: openapi
+workflows:
+- workflowId: browseProductsAndGetDetail
+  summary: List products then get the first product's detail.
+  inputs:
+    type: object
+    properties:
+      pageSize:
+        type: integer
+        default: 25
+  steps:
+  - stepId: listProducts
+    description: List Alex Bank banking products (current version x-v 5).
+    operationId: listBankingProducts
+    parameters:
+    - name: x-v
+      in: header
+      value: '5'
+    - name: page-size
+      in: query
+      value: $inputs.pageSize
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstProductId: $response.body#/data/products/0/productId
+  - stepId: getProductDetail
+    description: Fetch the full detail of the first product returned.
+    operationId: getBankingProductDetail
+    parameters:
+    - name: productId
+      in: path
+      value: $steps.listProducts.outputs.firstProductId
+    - name: x-v
+      in: header
+      value: '4'
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      product: $response.body#/data

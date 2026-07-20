@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://public.cdr.alex.com.au/.well-known/openid-configuration ;
+  openapi/alex-bank-cds-banking-products-openapi.yml ; review.yml
+standards:
+- id: cdr-consumer-data-standards
+  conforms: true
+  evidence: >-
+    Public PRD endpoint live at /cds-au/v1/banking/products with CDR x-v version header;
+    OpenAPI is the DSB CDR Banking API contract v1.36.0.
+- id: oauth2
+  conforms: true
+  evidence: OIDC discovery advertises authorization_code, client_credentials, refresh_token grants.
+- id: oidc
+  conforms: true
+  evidence: /.well-known/openid-configuration present with issuer, jwks_uri, id_token signing ES256.
+- id: fapi
+  conforms: true
+  evidence: >-
+    private_key_jwt token auth, tls_client_certificate_bound_access_tokens=true,
+    require_pushed_authorization_requests=true, PKCE S256, acr urn:cds.au:cdr:2 (FAPI/CDR profile).
+- id: pkce
+  conforms: true
+  evidence: code_challenge_methods_supported=[S256].
+- id: par-rfc9126
+  conforms: true
+  evidence: pushed_authorization_request_endpoint present and required.
+- id: mtls-rfc8705
+  conforms: true
+  evidence: tls_client_certificate_bound_access_tokens=true (sender-constrained tokens).
+- id: jarm
+  conforms: true
+  evidence: response_modes_supported=[jwt].
+- id: rfc8414-oauth-metadata
+  conforms: true
+  evidence: OpenID Provider metadata document served at /.well-known/openid-configuration.
+- id: pagination
+  conforms: true
+  evidence: CDR page / page-size query params with links + meta (totalRecords/totalPages) envelope.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the CDR ResponseErrorListV2 envelope (errors[] with code/title/detail/meta), not application/problem+json.
+compliance_program:
+  note: >-
+    Alex Bank Pty Ltd is an APRA-authorised deposit-taking institution (full banking
+    licence Dec 2021) and an active CDR data holder regulated by the ACCC/OAIC. This is
+    a regulatory authorisation, not a published infosec certification (no SOC 2 / ISO 27001
+    trust center was found).

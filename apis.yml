@@ -27,7 +27,7 @@ tags:
 - Digital Bank
 - Product Reference Data
 created: '2026-07-20'
-modified: '2026-07-20'
+modified: '2026-07-20T12:00:00Z'
 specificationVersion: '0.19'
 apis:
 - aid: alex-bank:alex-bank-cdr-product-reference-data-api
@@ -55,18 +55,53 @@ apis:
     personal/green/car/EV loans) with rates, fees, features and eligibility. Exposes GET
     /banking/products and GET /banking/products/{productId}; no API key or OAuth required.
 common:
+- type: DomainSecurity
+  url: security/alex-bank-domain-security.yml
 - type: Website
   url: https://www.alex.bank/
 - type: Documentation
   url: https://www.alex.bank/legal/open-banking/
+- type: APIReference
+  url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
 - type: Blog
   url: https://www.alex.bank/blog/
+- type: Support
+  url: https://consent.cdr.alex.com.au
 - type: PrivacyPolicy
   url: https://www.alex.bank/legal/privacy-policy/
 - type: TermsOfService
   url: https://www.alex.bank/legal/
 - type: PrivacyPolicy
   url: https://www.alex.bank/legal/consumer-data-right-cdr-policy/
+- type: Authentication
+  url: authentication/alex-bank-authentication.yml
+- type: OAuthScopes
+  url: scopes/alex-bank-scopes.yml
+- type: WellKnown
+  url: well-known/alex-bank-well-known.yml
+- type: Conformance
+  url: conformance/alex-bank-conformance.yml
+- type: ErrorCatalog
+  url: errors/alex-bank-problem-types.yml
+- type: Conventions
+  url: conventions/alex-bank-conventions.yml
+- type: Lifecycle
+  url: lifecycle/alex-bank-lifecycle.yml
+- type: Deprecation
+  url: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+- type: DataModel
+  url: data-model/alex-bank-data-model.yml
+- type: MCPServer
+  url: mcp/alex-bank-mcp.yml
+- type: LLMsTxt
+  url: llms/alex-bank-llms.txt
+- type: Overlay
+  url: overlays/alex-bank-cds-banking-products-overlay.yaml
+- type: AgentSkill
+  url: skills/alex-bank-lookup-products.md
+- type: Arazzo
+  name: Browse Alex Bank products and fetch one product's detail
+  url: arazzo/alex-bank-browse-products.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

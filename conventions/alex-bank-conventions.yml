@@ -1,0 +1,44 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  openapi/alex-bank-cds-banking-products-openapi.yml ;
+  https://consumerdatastandardsaustralia.github.io/standards/
+note: >-
+  Cross-cutting request/response semantics for the Alex Bank CDR surface. These are the
+  DSB Consumer Data Standards conventions to which every Australian ADI conforms.
+authentication:
+  public: none (Product Reference Data endpoints are unauthenticated)
+  consumer_data: FAPI OAuth2/OIDC + mTLS-bound tokens + PKCE (see authentication/alex-bank-authentication.yml)
+versioning:
+  style: header-negotiated
+  request_headers: [x-v, x-min-v]
+  response_header: x-v
+  note: >-
+    Clients request an endpoint version via x-v (and optionally a minimum acceptable
+    x-min-v); the server echoes the served version in the x-v response header. 406
+    Unsupported Version / 400 Invalid Version on mismatch. Obsolete endpoint versions
+    are formally deprecated in the standard (see lifecycle/alex-bank-lifecycle.yml).
+pagination:
+  style: page-number
+  request_params: [page, page-size]
+  page_size_default: 25
+  page_size_max: 1000
+  response_fields:
+    links: [self, first, prev, next, last]
+    meta: [totalRecords, totalPages]
+request_tracing:
+  header: x-fapi-interaction-id
+  note: FAPI interaction id echoed on every response (including errors) for correlation.
+idempotency:
+  supported: false
+  note: >-
+    The public API is read-only (GET products / product detail); the CDR banking data
+    holder surface exposes no write operations, so there is no idempotency-key contract.
+error_envelope:
+  ref: errors/alex-bank-problem-types.yml
+  format: cdr-error-list (errors[] of code/title/detail/meta; NOT RFC 9457)
+rate_limiting:
+  note: >-
+    CDR data holders enforce traffic thresholds per the Consumer Data Standards
+    (session/unauthenticated & authenticated call limits); not signalled via response
+    headers on the public PRD endpoint.

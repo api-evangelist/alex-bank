@@ -1,0 +1,7 @@
+generated: '2026-07-20'
+method: generated
+skills:
+- file: alex-bank-lookup-products.md
+  name: Look up Alex Bank banking products
+  api: openapi/alex-bank-cds-banking-products-openapi.yml
+  operations: [listBankingProducts, getBankingProductDetail]

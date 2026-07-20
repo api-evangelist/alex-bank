@@ -1,0 +1,28 @@
+# Alex Bank
+
+> Alex Bank (Alex Bank Pty Ltd, ABN 13 627 244 848) is an Australian digital bank headquartered in Brisbane, and an active APRA-authorised deposit-taking institution (ADI). As a Consumer Data Right (CDR) data holder it publishes an unauthenticated Product Reference Data (PRD) API under the DSB Consumer Data Standards, and supports accredited-data-recipient sharing of savings, term deposit and personal loan data over the CDR FAPI security profile.
+
+## APIs
+
+- [Alex Bank CDR Product Reference Data API](https://www.alex.bank/legal/open-banking/): Public, unauthenticated Get Products / Get Product Detail endpoints. Base URL https://public.cdr.alex.com.au/cds-au/v1
+
+## Specs
+
+- [OpenAPI (CDR Banking API, shared DSB contract v1.36.0)](openapi/alex-bank-cds-banking-products-openapi.yml)
+- [Authentication profile](authentication/alex-bank-authentication.yml)
+- [OAuth scopes](scopes/alex-bank-scopes.yml)
+- [OpenID configuration (well-known)](well-known/alex-bank-openid-configuration.json)
+- [Conformance (CDR / FAPI / OAuth2 / OIDC / PKCE / mTLS / PAR)](conformance/alex-bank-conformance.yml)
+- [Error catalog](errors/alex-bank-problem-types.yml)
+- [Conventions (versioning / pagination / tracing)](conventions/alex-bank-conventions.yml)
+- [Lifecycle (versioning / deprecation)](lifecycle/alex-bank-lifecycle.yml)
+- [Data model](data-model/alex-bank-data-model.yml)
+
+## Docs
+
+- [Open Banking / CDR participation](https://www.alex.bank/legal/open-banking/)
+- [Consumer Data Right (CDR) policy](https://www.alex.bank/legal/consumer-data-right-cdr-policy/)
+- [CDR consent management portal](https://consent.cdr.alex.com.au)
+- [Consumer Data Standards (DSB)](https://consumerdatastandardsaustralia.github.io/standards/)
+- [Blog](https://www.alex.bank/blog/)
+- [Privacy policy](https://www.alex.bank/legal/privacy-policy/)

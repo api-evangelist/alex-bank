@@ -1,0 +1,53 @@
+generated: '2026-07-20'
+method: searched
+source: https://public.cdr.alex.com.au/.well-known/openid-configuration
+docs: https://consumerdatastandardsaustralia.github.io/standards/#cdr-scopes
+note: >-
+  Scopes advertised by Alex Bank's CDR OpenID Provider (scopes_supported). These gate
+  the ACCC-accredited-data-recipient (ADR) consumer-data-sharing surface; the public
+  Product Reference Data endpoints require NO scope. Scope semantics are defined by the
+  DSB Consumer Data Standards, not by Alex Bank.
+schemes:
+- name: CDR-OAuth2-OIDC
+  source: https://public.cdr.alex.com.au/.well-known/openid-configuration
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://public.cdr.alex.com.au/connect/authorize
+    tokenUrl: https://secure.cdr.alex.com.au/connect/token
+scopes:
+- scope: openid
+  description: OpenID Connect authentication; issue an ID token.
+  flows: [authorizationCode]
+- scope: profile
+  description: Basic end-user profile claims.
+  flows: [authorizationCode]
+- scope: common:customer.basic:read
+  description: Read basic customer/organisation contact and identity details.
+  flows: [authorizationCode]
+- scope: common:customer.detail:read
+  description: Read detailed customer/organisation identity and contact details.
+  flows: [authorizationCode]
+- scope: cdr:registration
+  description: Dynamic client registration for accredited data recipients (CDR register).
+  flows: [clientCredentials]
+- scope: admin:metrics.basic:read
+  description: Read Get Metrics administrative endpoint (CDR reporting).
+  flows: [clientCredentials]
+- scope: admin:metadata:update
+  description: Trigger a metadata refresh from the CDR Register (admin).
+  flows: [clientCredentials]
+- scope: bank:accounts.basic:read
+  description: Read basic banking account data (account list, product category, nickname).
+  flows: [authorizationCode]
+- scope: bank:accounts.detail:read
+  description: Read detailed banking account data (features, fees, address, holder detail).
+  flows: [authorizationCode]
+- scope: bank:transactions:read
+  description: Read banking account transactions.
+  flows: [authorizationCode]
+- scope: bank:payees:read
+  description: Read saved payees.
+  flows: [authorizationCode]
+- scope: bank:regular_payments:read
+  description: Read direct debits and scheduled/regular payments.
+  flows: [authorizationCode]

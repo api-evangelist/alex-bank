@@ -1,0 +1,41 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/alex-bank-cds-banking-products-openapi.yml
+format: cdr-error-list
+envelope:
+  schema: ResponseErrorListV2
+  shape: >-
+    { "errors": [ { "code": "urn:au-cds:error:cds-all:...", "title": "...",
+    "detail": "...", "meta": {} } ] }
+  note: >-
+    CDR uses its own error envelope (a top-level errors[] array of code/title/detail/meta),
+    NOT RFC 9457 application/problem+json. Error codes are URNs from the DSB Consumer Data
+    Standards error catalogue. Every error response also carries the x-fapi-interaction-id header.
+docs: https://consumerdatastandardsaustralia.github.io/standards/#error-codes
+problems:
+- status: 400
+  titles: [Invalid Field, Missing Required Field, Missing Required Header, Invalid Version, Invalid Page Size]
+  codes:
+  - urn:au-cds:error:cds-all:Field/Invalid
+  - urn:au-cds:error:cds-all:Field/Missing
+  - urn:au-cds:error:cds-all:Header/Missing
+  - urn:au-cds:error:cds-all:Header/InvalidVersion
+  - urn:au-cds:error:cds-all:Field/InvalidPageSize
+  source_operation: openapi/alex-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 404
+  titles: [Resource Not Found, Unavailable Resource, Invalid Banking Account]
+  codes:
+  - urn:au-cds:error:cds-all:Resource/NotFound
+  - urn:au-cds:error:cds-all:Resource/Unavailable
+  - urn:au-cds:error:cds-banking:Authorisation/InvalidBankingAccount
+  source_operation: openapi/alex-bank-cds-banking-products-openapi.yml#getBankingProductDetail
+- status: 406
+  titles: [Unsupported Version]
+  codes:
+  - urn:au-cds:error:cds-all:Header/UnsupportedVersion
+  source_operation: openapi/alex-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 422
+  titles: [Invalid Page]
+  codes:
+  - urn:au-cds:error:cds-all:Field/InvalidPage
+  source_operation: openapi/alex-bank-cds-banking-products-openapi.yml#listBankingProducts
