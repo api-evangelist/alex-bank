@@ -1,0 +1,72 @@
+aid: alex-bank
+url: https://raw.githubusercontent.com/api-evangelist/alex-bank/refs/heads/main/apis.yml
+name: Alex Bank
+kind: company
+description: >-
+  Alex Bank (Alex Bank Pty Ltd, ABN 13 627 244 848) is an Australian digital bank
+  headquartered in Brisbane, founded in 2018 by former Suncorp bankers Simon Beitz
+  and Craig Fenwick. It is a shareholder-owned, venture-backed authorised
+  deposit-taking institution (ADI) - not a customer-owned mutual - that received its
+  Restricted ADI licence from APRA in July 2021 and a full banking licence in
+  December 2021, and joined the Reserve Bank of Australia's RITS as an Exchange
+  Settlement Account holder in 2025. Alex offers consumer lending (personal, green,
+  car and EV loans) and deposit products (term deposits and a savings account). As an
+  active ADI, Alex is a Consumer Data Right (CDR) data holder - it publishes an
+  unauthenticated Product Reference Data API under the DSB Consumer Data Standards,
+  runs a CDR consent-management portal, and supports accredited-data-recipient sharing
+  of savings, term deposit and personal loan data.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial
+- Banks
+- Open Banking
+- CDR
+- Consumer Data Right
+- Consumer Banking
+- Australia
+- Digital Bank
+- Product Reference Data
+created: '2026-07-20'
+modified: '2026-07-20'
+specificationVersion: '0.19'
+apis:
+- aid: alex-bank:alex-bank-cdr-product-reference-data-api
+  name: Alex Bank CDR Product Reference Data API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Reference Data
+  - Banking
+  - Public API
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.alex.bank/legal/open-banking/
+  baseURL: https://public.cdr.alex.com.au/cds-au/v1
+  properties:
+  - url: https://www.alex.bank/legal/open-banking/
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+    type: APIReference
+  - url: openapi/alex-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated Product Reference Data (PRD) API conforming to the
+    DSB Consumer Data Standards (CDR Banking API). Confirmed live at
+    https://public.cdr.alex.com.au/cds-au/v1/banking/products (HTTP 200, x-v 3) returning a
+    data.products array of Alex Bank's deposit and lending products (term deposits, savings,
+    personal/green/car/EV loans) with rates, fees, features and eligibility. Exposes GET
+    /banking/products and GET /banking/products/{productId}; no API key or OAuth required.
+common:
+- type: Website
+  url: https://www.alex.bank/
+- type: Documentation
+  url: https://www.alex.bank/legal/open-banking/
+- type: Blog
+  url: https://www.alex.bank/blog/
+- type: PrivacyPolicy
+  url: https://www.alex.bank/legal/privacy-policy/
+- type: TermsOfService
+  url: https://www.alex.bank/legal/
+- type: PrivacyPolicy
+  url: https://www.alex.bank/legal/consumer-data-right-cdr-policy/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

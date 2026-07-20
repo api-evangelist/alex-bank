@@ -1,0 +1,83 @@
+aid: alex-bank
+name: Alex Bank
+review:
+  question: Does Alex Bank expose a confirmed public API surface, and what is its posture?
+  answer: true
+  date: '2026-07-20'
+  reviewer: API Evangelist
+findings:
+  summary: |
+    Alex Bank's only public, unauthenticated API surface is its Consumer Data
+    Right (CDR) Product Reference Data (PRD) API, mandated for every active
+    Australian ADI under the CDR / Open Banking regime. It was confirmed live
+    at https://public.cdr.alex.com.au/cds-au/v1/banking/products - an HTTP 200
+    response with the CDR `x-v: 3` version header and a JSON body containing a
+    `data.products` array (6 products across term deposits, savings and
+    personal/green/car/EV loans) plus standard `links` and `meta` pagination
+    (totalRecords 6, totalPages 2). No API key, OAuth token or client
+    certificate is required for this endpoint - product data is explicitly
+    unauthenticated by design under the Consumer Data Standards.
+
+    Alex Bank does NOT run a general-purpose developer portal or a personal
+    banking developer API (unlike Up Bank). There is no developer.alex.bank
+    (DNS does not resolve) and no documented API key programme. Its API-facing
+    web presence is limited to CDR legal/policy pages: an Open Banking page
+    (https://www.alex.bank/legal/open-banking/, 200) and a Consumer Data Right
+    policy page (https://www.alex.bank/legal/consumer-data-right-cdr-policy/,
+    200), plus a CDR consent-management portal at https://consent.cdr.alex.com.au
+    (200) where customers grant, view and revoke data-sharing consents.
+
+    Authenticated CDR consumer-data sharing (account, balance, transaction and
+    product data for accredited data recipients) exists but is NOT public: it
+    follows the CDR security profile - OAuth2 / OpenID Connect built on the
+    FAPI profile with mutual-TLS sender-constrained tokens and PKCE - and is
+    only reachable by ACCC-accredited data recipients (the ADR model), so it is
+    out of scope as a public API.
+  specProvenance: |
+    The harvested OpenAPI at openapi/alex-bank-cds-banking-products-openapi.yml
+    is the SHARED DSB Consumer Data Standards contract ("CDR Banking API",
+    OpenAPI 3.0.3, version 1.36.0, MIT-licensed, contact@dsb.gov.au), NOT a
+    bank-proprietary specification. Alex Bank publishes no bank-specific
+    OpenAPI; every Australian ADI conforms its PRD/CDR endpoints to this same
+    Data Standards Body contract. It was downloaded verbatim from
+    https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.yaml
+    and covers the full banking resource set (products, accounts, balances,
+    transactions, payees, direct debits, scheduled payments), of which only the
+    two Get Products operations are exercised by the public PRD endpoint.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://public.cdr.alex.com.au/cds-au/v1
+      documented: true
+      note: Public unauthenticated CDR Product Reference Data. Confirmed HTTP 200 with x-v 3.
+    - protocol: REST
+      scheme: https
+      documented: true
+      authenticated: true
+      note: >-
+        Authenticated CDR consumer-data sharing for ACCC-accredited data
+        recipients only (FAPI OAuth2/OIDC + mTLS + PKCE). Not a public API.
+  endpointsConfirmedRest:
+    - GET https://public.cdr.alex.com.au/cds-au/v1/banking/products
+    - GET https://public.cdr.alex.com.au/cds-au/v1/banking/products/{productId}
+  authModel:
+    productReferenceData: none (unauthenticated, public)
+    consumerData: OAuth2/OIDC FAPI profile, mTLS sender-constrained tokens, PKCE, CDR ADR accreditation
+  developerPortal: false
+  cdrPrdConfirmed: true
+sources:
+  - url: https://public.cdr.alex.com.au/cds-au/v1/banking/products
+    type: APIReference
+    note: Live PRD endpoint - HTTP 200, x-v 3, data.products array (6 records), links + meta pagination.
+  - url: https://www.alex.bank/legal/open-banking/
+    type: Documentation
+    note: Alex Bank Open Banking page describing CDR participation and shareable data types (200).
+  - url: https://www.alex.bank/legal/consumer-data-right-cdr-policy/
+    type: Documentation
+    note: Consumer Data Right policy page (200).
+  - url: https://consent.cdr.alex.com.au
+    type: Support
+    note: CDR consent-management portal for granting/revoking data-sharing consents (200).
+  - url: https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.yaml
+    type: OpenAPI
+    note: Source of the harvested shared DSB CDR Banking API spec (OpenAPI 3.0.3, v1.36.0).
