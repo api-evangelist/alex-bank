@@ -153,6 +153,8 @@ apis:
     recipients over the CDR mTLS/InfoSec channel once the customer has granted consent through
     Alex Bank's CDR consent portal; it is not reachable on the unauthenticated PRD host.
 common:
+- type: AgenticAccess
+  url: agentic-access/alex-bank-agentic-access.yml
 - type: DomainSecurity
   url: security/alex-bank-domain-security.yml
 - type: Website
