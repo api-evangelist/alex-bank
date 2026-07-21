@@ -27,7 +27,7 @@ tags:
 - Digital Bank
 - Product Reference Data
 created: '2026-07-20'
-modified: '2026-07-20T12:00:00Z'
+modified: '2026-07-21T12:00:00Z'
 specificationVersion: '0.19'
 apis:
 - aid: alex-bank:alex-bank-cdr-product-reference-data-api
@@ -40,7 +40,7 @@ apis:
   - Public API
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://www.alex.bank/legal/open-banking/
-  baseURL: https://public.cdr.alex.com.au/cds-au/v1
+  baseURL: https://public.cdr.alex.com.au/cds-au/v1/banking/products
   properties:
   - url: https://www.alex.bank/legal/open-banking/
     type: Documentation
@@ -54,6 +54,104 @@ apis:
     data.products array of Alex Bank's deposit and lending products (term deposits, savings,
     personal/green/car/EV loans) with rates, fees, features and eligibility. Exposes GET
     /banking/products and GET /banking/products/{productId}; no API key or OAuth required.
+- aid: alex-bank:alex-bank-cdr-accounts-balances-api
+  name: Alex Bank CDR Accounts & Balances API
+  tags:
+  - CDR
+  - Open Banking
+  - Accounts
+  - Balances
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.alex.bank/legal/open-banking/
+  baseURL: https://public.cdr.alex.com.au/cds-au/v1/banking/accounts
+  properties:
+  - url: https://www.alex.bank/legal/open-banking/
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+    type: APIReference
+  - url: openapi/alex-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Accounts & Balances surface of Alex Bank's CDR Banking
+    API, standardized by the DSB Consumer Data Standards (CDR Banking API v1.36.0). Covers
+    GET /banking/accounts (list authorized accounts), GET /banking/accounts/balances (bulk
+    balances), GET /banking/accounts/{accountId}/balance, and GET /banking/accounts/{accountId}
+    (account detail). These endpoints are NOT public - they are consumed by APRA-accredited
+    data recipients (ADRs) over the CDR mTLS/InfoSec channel after the customer grants consent
+    through Alex Bank's CDR consent portal; they are not reachable on the unauthenticated PRD host.
+- aid: alex-bank:alex-bank-cdr-transactions-api
+  name: Alex Bank CDR Transactions API
+  tags:
+  - CDR
+  - Open Banking
+  - Transactions
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.alex.bank/legal/open-banking/
+  baseURL: https://public.cdr.alex.com.au/cds-au/v1/banking/accounts
+  properties:
+  - url: https://www.alex.bank/legal/open-banking/
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+    type: APIReference
+  - url: openapi/alex-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Transactions surface of Alex Bank's CDR Banking API, per the
+    DSB Consumer Data Standards (CDR Banking API v1.36.0). Covers GET
+    /banking/accounts/{accountId}/transactions (list, with date/amount/text filters) and GET
+    /banking/accounts/{accountId}/transactions/{transactionId} (transaction detail). Accessed by
+    accredited data recipients over the CDR mTLS/InfoSec channel under an active consent grant; it
+    is not exposed on the public unauthenticated PRD host.
+- aid: alex-bank:alex-bank-cdr-direct-debits-scheduled-payments-api
+  name: Alex Bank CDR Direct Debits & Scheduled Payments API
+  tags:
+  - CDR
+  - Open Banking
+  - Direct Debits
+  - Scheduled Payments
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.alex.bank/legal/open-banking/
+  baseURL: https://public.cdr.alex.com.au/cds-au/v1/banking
+  properties:
+  - url: https://www.alex.bank/legal/open-banking/
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+    type: APIReference
+  - url: openapi/alex-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Direct Debits and Scheduled Payments surface of Alex Bank's CDR
+    Banking API, standardized by the DSB Consumer Data Standards (CDR Banking API v1.36.0). Covers
+    GET /banking/accounts/{accountId}/direct-debits and POST /banking/accounts/direct-debits (bulk),
+    plus GET /banking/accounts/{accountId}/payments/scheduled and POST /banking/payments/scheduled
+    (bulk). Consumed by accredited data recipients over the CDR mTLS/InfoSec channel under customer
+    consent; not available on the unauthenticated PRD host.
+- aid: alex-bank:alex-bank-cdr-payees-api
+  name: Alex Bank CDR Payees API
+  tags:
+  - CDR
+  - Open Banking
+  - Payees
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.alex.bank/legal/open-banking/
+  baseURL: https://public.cdr.alex.com.au/cds-au/v1/banking/payees
+  properties:
+  - url: https://www.alex.bank/legal/open-banking/
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+    type: APIReference
+  - url: openapi/alex-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Payees surface of Alex Bank's CDR Banking API, per the DSB
+    Consumer Data Standards (CDR Banking API v1.36.0). Covers GET /banking/payees (list saved
+    payees) and GET /banking/payees/{payeeId} (payee detail). Accessed by accredited data
+    recipients over the CDR mTLS/InfoSec channel once the customer has granted consent through
+    Alex Bank's CDR consent portal; it is not reachable on the unauthenticated PRD host.
 common:
 - type: DomainSecurity
   url: security/alex-bank-domain-security.yml
