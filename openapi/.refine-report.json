@@ -1,0 +1,26 @@
+{
+  "provider": "alex-bank",
+  "sources": [
+    "alex-bank-banking-account-balances-api-openapi.yml",
+    "alex-bank-banking-account-direct-debits-api-openapi.yml",
+    "alex-bank-banking-account-scheduled-payments-api-openapi.yml",
+    "alex-bank-banking-account-transactions-api-openapi.yml",
+    "alex-bank-banking-accounts-api-openapi.yml",
+    "alex-bank-banking-payees-api-openapi.yml",
+    "alex-bank-banking-products-api-openapi.yml"
+  ],
+  "outputs": [
+    "alex-bank-banking-account-balances-api-openapi.yml",
+    "alex-bank-banking-account-direct-debits-api-openapi.yml",
+    "alex-bank-banking-account-scheduled-payments-api-openapi.yml",
+    "alex-bank-banking-account-transactions-api-openapi.yml",
+    "alex-bank-banking-accounts-api-openapi.yml",
+    "alex-bank-banking-payees-api-openapi.yml",
+    "alex-bank-banking-products-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
