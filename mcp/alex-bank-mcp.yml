@@ -2,18 +2,23 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/alex-bank-cds-banking-products-openapi.yml
-note: >-
-  Alex Bank publishes no official MCP server. This is a candidate tool list derived
-  from the public, unauthenticated CDR Product Reference Data operations only - the
-  authenticated consumer-data operations require ACCC accreditation + mTLS and are not
-  suitable for a public MCP surface.
+note: Alex Bank publishes no official MCP server. This is a candidate tool list derived from the public,
+  unauthenticated CDR Product Reference Data operations only - the authenticated consumer-data operations
+  require ACCC accreditation + mTLS and are not suitable for a public MCP surface.
 server:
   name: alex-bank
   transport: http
 tools:
 - name: list_products
-  description: List Alex Bank's publicly available banking products (deposits and loans) with rates, fees, features and eligibility.
+  description: List Alex Bank's publicly available banking products (deposits and loans) with rates, fees,
+    features and eligibility.
   source_operation: openapi/alex-bank-cds-banking-products-openapi.yml#listBankingProducts
 - name: get_product_detail
   description: Get the full detail of a single Alex Bank banking product by productId.
   source_operation: openapi/alex-bank-cds-banking-products-openapi.yml#getBankingProductDetail
+deployment:
+  mode: none
+  verified: derived
+  tools: 2
+  checked: '2026-08-12'
+  source: catalog MCP census
