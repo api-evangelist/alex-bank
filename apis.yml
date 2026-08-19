@@ -40,7 +40,7 @@ tags:
 - Product Reference Data
 created: '2026-07-20'
 modified: '2026-07-21T12:00:00Z'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: alex-bank:alex-bank-banking-account-balances-api
   name: Alex Bank Banking Account Balances API
