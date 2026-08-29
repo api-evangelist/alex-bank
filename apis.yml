@@ -216,6 +216,9 @@ apis:
   - type: APIReference
     url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
 common:
+- type: CapabilityMap
+  url: capabilities/alex-bank-capability-edges.yml
+  name: Alex Bank Business Capability Map
 - type: AgenticAccess
   url: agentic-access/alex-bank-agentic-access.yml
 - type: DomainSecurity
