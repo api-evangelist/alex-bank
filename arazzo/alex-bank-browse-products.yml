@@ -6,8 +6,8 @@ info:
     List Alex Bank's public CDR banking products, then retrieve the full detail of the
     first product. Runs against the public unauthenticated PRD endpoint - no credentials.
 sourceDescriptions:
-- name: alexBankCds
-  url: ../openapi/alex-bank-cds-banking-products-openapi.yml
+- name: bankingProductsApi
+  url: ../openapi/alex-bank-banking-products-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: browseProductsAndGetDetail
