@@ -1,34 +1,31 @@
 generated: '2026-07-20'
 method: searched
 source: live probes of /.well-known/ across Alex Bank CDR + web hosts
-documents:
-- host: https://public.cdr.alex.com.au
-  path: /.well-known/openid-configuration
-  status: 200
-  file: alex-bank-openid-configuration.json
-  note: >-
-    Alex Bank CDR OpenID Provider metadata (OIDC discovery / RFC 8414). Real issuer,
-    authorization/token/introspection/revocation/userinfo/registration/PAR endpoints,
-    12 supported scopes, FAPI markers (private_key_jwt, mTLS-bound tokens, PAR required,
-    PKCE S256, acr urn:cds.au:cdr:2).
-- host: https://public.cdr.alex.com.au
-  path: /.well-known/security.txt
-  status: 401
-- host: https://public.cdr.alex.com.au
-  path: /.well-known/oauth-authorization-server
-  status: 401
-- host: https://public.cdr.alex.com.au
-  path: /.well-known/api-catalog
-  status: 401
-- host: https://public.cdr.alex.com.au
-  path: /.well-known/ai-plugin.json
-  status: 401
-- host: https://www.alex.bank
-  path: /.well-known/security.txt
-  status: 404
-- host: https://www.alex.bank
-  path: /.well-known/openid-configuration
-  status: 404
-- host: https://consent.cdr.alex.com.au
-  path: /.well-known/openid-configuration
-  status: 404
+hosts:
+- host: ''
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: alex-bank-openid-configuration.json
+    note: Alex Bank CDR OpenID Provider metadata (OIDC discovery / RFC 8414). Real issuer, authorization/token/introspection/revocation/userinfo/registration/PAR
+      endpoints, 12 supported scopes, FAPI markers (private_key_jwt, mTLS-bound tokens, PAR required,
+      PKCE S256, acr urn:cds.au:cdr:2).
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/oauth-authorization-server
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+  - path: /.well-known/ai-plugin.json
+    status: 401
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.
